@@ -2,8 +2,10 @@ from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 from sqlalchemy.orm import DeclarativeBase, relationship
 from datetime import datetime
 
+
 class Base(DeclarativeBase):
     pass
+
 
 class Group(Base):
     __tablename__ = "groups"
@@ -13,6 +15,7 @@ class Group(Base):
 
     # зворотні зв'язки
     students = relationship("Student", back_populates="group")
+
 
 class Student(Base):
     __tablename__ = "students"
@@ -25,6 +28,7 @@ class Student(Base):
     group = relationship("Group", back_populates="students")
     grades = relationship("Grade", back_populates="student")
 
+
 class Teacher(Base):
     __tablename__ = "teachers"
 
@@ -35,6 +39,7 @@ class Teacher(Base):
     # Зв'язок з предметом (для прикладу, 1 викладач може читати кілька предметів)
     subjects = relationship("Subject", back_populates="teacher")
 
+
 class Subject(Base):
     __tablename__ = "subjects"
 
@@ -44,6 +49,7 @@ class Subject(Base):
 
     teacher = relationship("Teacher", back_populates="subjects")
     grades = relationship("Grade", back_populates="subject")
+
 
 class Grade(Base):
     __tablename__ = "grades"

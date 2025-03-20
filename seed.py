@@ -3,6 +3,7 @@ from faker import Faker
 from app.database import SessionLocal
 from app.models import Group, Student, Teacher, Subject, Grade
 
+
 def create_groups(session, fake):
     groups = []
     for i in range(3):
@@ -10,6 +11,7 @@ def create_groups(session, fake):
         session.add(group)
         groups.append(group)
     return groups
+
 
 def create_teachers(session, fake):
     teachers = []
@@ -21,6 +23,7 @@ def create_teachers(session, fake):
         session.add(t)
         teachers.append(t)
     return teachers
+
 
 def create_subjects(session, teachers):
     subjects = []
@@ -34,6 +37,7 @@ def create_subjects(session, teachers):
         subjects.append(subj)
     return subjects
 
+
 def create_students(session, fake, groups):
     students = []
     for _ in range(30):
@@ -46,6 +50,7 @@ def create_students(session, fake, groups):
         students.append(st)
     return students
 
+
 def create_grades(session, students, subjects):
     for student in students:
         for _ in range(random.randint(10, 20)):
@@ -55,6 +60,7 @@ def create_grades(session, students, subjects):
                 grade_value=random.randint(60, 100)
             )
             session.add(grade)
+
 
 def create_fake_data():
     fake = Faker()
@@ -71,6 +77,7 @@ def create_fake_data():
     create_grades(session, students, subjects)
     session.commit()
     session.close()
+
 
 if __name__ == "__main__":
     create_fake_data()

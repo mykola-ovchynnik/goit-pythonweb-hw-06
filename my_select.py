@@ -3,9 +3,9 @@ from sqlalchemy import func, desc
 from app.database import SessionLocal
 from app.models import Student, Grade, Subject, Teacher, Group
 
-# Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
 
 def select_1():
     session = SessionLocal()
@@ -19,6 +19,7 @@ def select_1():
     session.close()
     return result
 
+
 def select_2(subject_id: int):
     session = SessionLocal()
     result = (session.query(Student.id, Student.first_name, Student.last_name,
@@ -31,6 +32,7 @@ def select_2(subject_id: int):
     session.close()
     return result
 
+
 def select_3(subject_id: int):
     session = SessionLocal()
     result = (session.query(Group.name, func.round(func.avg(Grade.grade_value), 2).label("avg_grade"))
@@ -42,11 +44,13 @@ def select_3(subject_id: int):
     session.close()
     return result
 
+
 def select_4():
     session = SessionLocal()
     result = session.query(func.round(func.avg(Grade.grade_value), 2)).scalar()
     session.close()
     return result
+
 
 def select_5(teacher_id: int):
     session = SessionLocal()
@@ -57,6 +61,7 @@ def select_5(teacher_id: int):
     session.close()
     return result
 
+
 def select_6(group_id: int):
     session = SessionLocal()
     result = (session.query(Student.id, Student.first_name, Student.last_name)
@@ -64,6 +69,7 @@ def select_6(group_id: int):
               .all())
     session.close()
     return result
+
 
 def select_7(group_id: int, subject_id: int):
     session = SessionLocal()
@@ -74,6 +80,7 @@ def select_7(group_id: int, subject_id: int):
     session.close()
     return result
 
+
 def select_8(teacher_id: int):
     session = SessionLocal()
     result = (session.query(func.round(func.avg(Grade.grade_value), 2).label("avg_grade"))
@@ -82,6 +89,7 @@ def select_8(teacher_id: int):
               .scalar())
     session.close()
     return result
+
 
 def select_9(student_id: int):
     session = SessionLocal()
@@ -93,6 +101,7 @@ def select_9(student_id: int):
     session.close()
     return result
 
+
 def select_10(student_id: int, teacher_id: int):
     session = SessionLocal()
     result = (session.query(Subject.name)
@@ -102,6 +111,7 @@ def select_10(student_id: int, teacher_id: int):
               .all())
     session.close()
     return result
+
 
 if __name__ == "__main__":
     logger.info("Top 5 students with the highest average grade: %s", select_1())
